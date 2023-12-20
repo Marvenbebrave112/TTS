@@ -1,0 +1,6 @@
+{
+  "text": "你好，今天星期三，天气晴！",
+  "speaker_wav": "/content/TTS/tests/my/cloning/record_test1.m4a",
+  "language": "zh-cn",
+  "output_path": "/content/TTS/tests/my/cloning/output.wav"
+}
