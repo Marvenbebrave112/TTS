@@ -19,7 +19,8 @@ else:
 
 def voice_conversion(text, speaker_wav, language, output_path):
     tts.tts_to_file(text=text, speaker_wav=speaker_wav, language=language, output_path=output_path)
-
+    print("Voice conversion completed.")
+    
 # 设置命令行参数解析
 parser = argparse.ArgumentParser(description="Run voice conversion with config file.")
 parser.add_argument('config_path', type=str, help='Path to the config file')
