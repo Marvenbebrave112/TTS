@@ -1,7 +1,15 @@
 import torch
 from TTS.api import TTS
 import json
-import argparse
+import io
+import locale
+from functools import partial
+
+# 设置默认的locale为C.UTF-8
+locale.setlocale(locale.LC_ALL, 'C.UTF-8')
+
+# 确保所有的文件操作都使用UTF-8编码
+io.open = partial(io.open, encoding='utf8')
 
 # Get device
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -18,17 +26,17 @@ else:
     print("Model already loaded.")
 
 def voice_conversion(text, speaker_wav, language, output_path):
-    tts.tts_to_file(text=text, speaker_wav=speaker_wav, language=language, output_path=output_path)
+    tts.tts_to_file(text=text, speaker_wav=speaker_wav, language=language, file_path=output_path)
     print("Voice conversion completed.")
-    
-# 设置命令行参数解析
-parser = argparse.ArgumentParser(description="Run voice conversion with config file.")
-parser.add_argument('config_path', type=str, help='Path to the config file')
-args = parser.parse_args()
+
+# 配置文件路径
+config_path = '/content/TTS/voice_conversion_config.json'  # 替换为您的配置文件路径
 
 # 读取配置文件
-with open(args.config_path, 'r') as config_file:
+with open(config_path, 'r', encoding='utf-8') as config_file:
     config = json.load(config_file)
 
 # 调用函数
 voice_conversion(config['text'], config['speaker_wav'], config['language'], config['output_path'])
+
+
